@@ -6,6 +6,8 @@ import kz.t4jgat.trackwheatherviameasurementdevice.models.Sensor;
 import kz.t4jgat.trackwheatherviameasurementdevice.repositories.MeasurementsRepository;
 import kz.t4jgat.trackwheatherviameasurementdevice.utils.SensorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,4 +45,7 @@ public class MeasurementsService {
         measurementsRepository.save(measurement);
     }
 
+    public long calculateRainyDays() {
+        return findAll().stream().filter(Measurement::isRaining).count();
+    }
 }

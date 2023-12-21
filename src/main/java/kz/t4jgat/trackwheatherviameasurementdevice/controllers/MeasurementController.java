@@ -7,10 +7,7 @@ import kz.t4jgat.trackwheatherviameasurementdevice.models.Measurement;
 import kz.t4jgat.trackwheatherviameasurementdevice.models.Sensor;
 import kz.t4jgat.trackwheatherviameasurementdevice.services.MeasurementsService;
 import kz.t4jgat.trackwheatherviameasurementdevice.services.SensorsService;
-import kz.t4jgat.trackwheatherviameasurementdevice.utils.ErrorResponse;
-import kz.t4jgat.trackwheatherviameasurementdevice.utils.MeasurementNotCreatedException;
-import kz.t4jgat.trackwheatherviameasurementdevice.utils.MeasurementNotFoundException;
-import kz.t4jgat.trackwheatherviameasurementdevice.utils.SensorNotFoundException;
+import kz.t4jgat.trackwheatherviameasurementdevice.utils.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +49,11 @@ public class MeasurementController {
             throw new MeasurementNotFoundException("404 Not found");
 
         return ResponseEntity.ok(convertToMeasurementDTO(measurement));
+    }
+
+    @GetMapping("/rainyDaysCount")
+    public ResponseEntity<RainyDaysResponse> rainyDaysCount() {
+        return ResponseEntity.ok(new RainyDaysResponse(measurementsService.calculateRainyDays()));
     }
 
     @PostMapping("/add")
