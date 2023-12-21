@@ -1,22 +1,25 @@
 package kz.t4jgat.trackwheatherviameasurementdevice.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import kz.t4jgat.trackwheatherviameasurementdevice.models.Sensor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class MeasurementDTO {
     @Min(value = -100, message = "value should be greater than -100")
     @Max(value = 100, message = "value should be smaller than 100")
-    @NotEmpty(message = "value should not be empty")
+    @NotNull
     private double value;
 
-    @NotEmpty(message = "raining value should not be empty")
+    @NotNull(message = "raining should be true or false")
     private boolean raining;
 
-    @NotEmpty(message = "sensor should not be empty")
-    private Sensor sensor;
+    private SensorDTO sensor;
 
 }

@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import kz.t4jgat.trackwheatherviameasurementdevice.dto.SensorDTO;
 import kz.t4jgat.trackwheatherviameasurementdevice.models.Sensor;
 import kz.t4jgat.trackwheatherviameasurementdevice.services.SensorsService;
-import kz.t4jgat.trackwheatherviameasurementdevice.utils.SensorErrorResponse;
+import kz.t4jgat.trackwheatherviameasurementdevice.utils.ErrorResponse;
 import kz.t4jgat.trackwheatherviameasurementdevice.utils.SensorNotCreatedException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +60,8 @@ public class SensorController {
     }
 
     @ExceptionHandler
-    public ResponseEntity<SensorErrorResponse> handleException(SensorNotCreatedException e) {
-        SensorErrorResponse errorResponse = new SensorErrorResponse(
+    public ResponseEntity<ErrorResponse> handleException(SensorNotCreatedException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 e.getMessage(), System.currentTimeMillis()
         );
 
@@ -75,5 +75,4 @@ public class SensorController {
     private Sensor convertToSensor(SensorDTO sensorDTO) {
         return modelMapper.map(sensorDTO, Sensor.class);
     }
-
 }
